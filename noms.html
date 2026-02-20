@@ -58,17 +58,38 @@ h1 {
 }
 
 button {
-  background: #000000;
+  background: transparent;
   color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
+
+  border: 2px solid white;      /* Cadre */
+  padding: 10px 20px;
+  border-radius: 12px;
+
   cursor: pointer;
   font-size: 15px;
+  font-weight: bold;
+
+  transition: all 0.25s ease;
+  box-shadow: 0 0 0 rgba(255,255,255,0);
 }
 
+/* Survol */
 button:hover {
-  background: #000000;
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 10px rgba(255,255,255,0.6);
+  transform: scale(1.05);
+}
+
+/* Clic */
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 4px rgba(255,255,255,0.8);
+}
+
+/* Focus clavier (accessibilité) */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 12px rgba(255,255,255,0.9);
 }
 
 footer {
