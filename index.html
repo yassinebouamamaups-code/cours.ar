@@ -107,9 +107,84 @@ footer {
 </head>
 
 <body>
+<div id="prayer-banner" style="background:#1e3c72;color:white;padding:15px;font-size:18px;">
+  🔔 Prochaine prière : <span id="next-prayer"></span> dans <span id="countdown"></span>
+</div>
 
+<script>
+const apiUrl = "https://api.aladhan.com/v1/timingsByCity?city=Toulouse&country=France&method=2";
+
+// Proxy pour éviter le blocage CORS
+const proxy = "https://api.allorigins.win/raw?url=";
+
+fetch(proxy + encodeURIComponent(apiUrl))
+  .then(res => res.json())
+  .then(data => {
+
+    if (!data.data || !data.data.timings) {
+      throw "Données invalides";
+    }
+
+    const times = data.data.timings;
+    startCountdown(times);
+
+  })
+  .catch(err => {
+
+    document.getElementById("prayer-banner").innerText =
+      "⚠️ Horaires indisponibles";
+
+    console.error("Erreur :", err);
+  });
+
+
+function startCountdown(times) {
+
+  const schedule = [
+    { name: "Fajr", time: times.Fajr },
+    { name: "Dhuhr", time: times.Dhuhr },
+    { name: "Asr", time: times.Asr },
+    { name: "Maghrib", time: times.Maghrib },
+    { name: "Isha", time: times.Isha }
+  ];
+
+  function toDate(t) {
+    const [h, m] = t.split(":");
+    const d = new Date();
+    d.setHours(h, m, 0, 0);
+    return d;
+  }
+
+  function update() {
+
+    const now = new Date();
+
+    let next = schedule.find(p => toDate(p.time) > now);
+
+    if (!next) next = schedule[0];
+
+    let target = toDate(next.time);
+
+    let diff = target - now;
+
+    if (diff < 0) diff += 86400000;
+
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor(diff % 3600000 / 60000);
+    const s = Math.floor(diff % 60000 / 1000);
+
+    document.getElementById("next-prayer").textContent = next.name;
+
+    document.getElementById("countdown").textContent =
+      `${h}h ${m}m ${s}s`;
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+</script>
 <header>
-  <h1>📖 Cours d'arabe</h1>
+  <h1>📖 Cours d'arabe et Islam</h1>
   <div class="subtitle">avec Ismael Batchir</div>
 </header>
 
@@ -153,8 +228,6 @@ footer {
 
 </body>
 </html>
-
-
 
 
 
