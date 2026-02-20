@@ -17,13 +17,9 @@
 <h1>📖 Lettres Arabes avec Fatha</h1>
 <p>Clique sur une lettre pour écouter</p>
 
-<audio id="audio" src="fatha_cut.m4a"></audio>
-
 <div class="grid" id="letters"></div>
 
 <script>
-const audio = document.getElementById("audio");
-
 // Lettres avec timestamp début (en secondes) et durée approximative (en secondes)
 const letters = [
   {char:"اَ", start:1.8, duration:0.9},
@@ -63,21 +59,16 @@ letters.forEach(letter => {
   div.className = "card";
   div.textContent = letter.char;
   div.onclick = () => {
-    // Stop le son en cours
-    audio.pause();
-    // Aller au début de la lettre
-    audio.currentTime = letter.start;
+    // Crée une nouvelle instance Audio à chaque clic
+    const audio = new Audio("fatha_cut.m4a");
+    audio.currentTime = letter.start; // position de début
     audio.play();
     // Arrêter après la durée de la lettre
-    setTimeout(() => {
-      audio.pause();
-    }, letter.duration * 1000);
+    setTimeout(() => audio.pause(), letter.duration * 1000);
   };
   container.appendChild(div);
 });
 </script>
 
 </body>
-
 </html>
-
