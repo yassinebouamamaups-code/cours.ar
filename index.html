@@ -112,6 +112,241 @@ footer {
 </div>
 
 <script>
+window.addEventListener("load", function () {
+
+  fetch("https://api.aladhan.com/v1/timingsByCity?city=Toulouse&country=France&method=2")
+    .then(res => res.json())
+    .then(data => {
+
+      if (!data.data || !data.data.timings) {
+        throw "Données invalides";
+      }
+
+      const times = data.data.timings;
+      startCountdown(times);
+
+    })
+    .catch(err => {
+
+      document.getElementById("prayer-banner").innerText =
+        "⚠️ Horaires indisponibles";
+
+      console.error("Erreur API :", err);
+    });
+
+});
+
+
+function startCountdown(times) {
+
+  const schedule = [
+    { name: "Fajr", time: times.Fajr },
+    { name: "Dhuhr", time: times.Dhuhr },
+    { name: "Asr", time: times.Asr },
+    { name: "Maghrib", time: times.Maghrib },
+    { name: "Isha", time: times.Isha }
+  ];
+
+  function toDate(t) {
+    const [h, m] = t.split(":");
+    const d = new Date();
+    d.setHours(h, m, 0, 0);
+    return d;
+  }
+
+  function update() {
+
+    const now = new Date();
+
+    let next = schedule.find(p => toDate(p.time) > now);
+
+    if (!next) next = schedule[0]; // Fajr demain
+
+    let target = toDate(next.time);
+
+    let diff = target - now;
+
+    if (diff < 0) diff += 86400000;
+
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById("next-prayer").textContent = next.name;
+
+    document.getElementById("countdown").textContent =
+      `${h}h ${m}m ${s}s`;
+  }
+
+  // Lancement immédiat + intervalle
+  update();
+  setInterval(update, 1000);
+}
+</script>
+<header>
+  <h1>📖 Cours d'arabe et Islam</h1>
+  <div class="subtitle">avec Ismael Batchir</div>
+</header>
+
+<div class="section">
+  <h2>Sommaire</h2>
+
+  <!-- Partie 1 -->
+  <details>
+    <summary class="card">📘 Partie 1 – Cours</summary>
+
+    <a href="fatha.html" class="sub-card">
+      📌 Cours 1 – La Fatha
+    </a>
+  </details>
+
+  <!-- Partie 2 -->
+  <a href="noms.html" class="card">
+    🌙 Partie 2 – Noms d’Allah
+  </a>
+
+  <!-- Partie 3 -->
+  <a href="#" class="card">
+    📖 Partie 3 – Règles du Tajweed
+  </a>
+
+  <!-- Partie 4 -->
+  <a href="#" class="card">
+    🕌 Partie 4 – Hadiths
+  </a>
+
+  <!-- Partie 5 -->
+  <a href="#" class="card">
+    🤲 Partie 5 – Invocations
+  </a>
+
+</div>
+
+<footer>
+  © 2026 - Cours d'arabe
+</footer>
+
+</body>
+</html>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours d'arabe</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: white;
+  position: relative;
+}
+
+/* Image de fond avec effet léger */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("islam-bg.jpg") no-repeat center center/cover;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+header {
+  padding: 60px 20px 30px;
+}
+
+h1 {
+  font-size: 36px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #000000;
+}
+
+.section {
+  margin-top: 40px;
+}
+
+/* Cartes */
+.card {
+  display: inline-block;
+  background: #000000;
+  color: white;
+  padding: 20px 30px;
+  margin: 15px;
+  border-radius: 15px;
+  font-size: 20px;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  background: #000000;
+  transform: scale(1.05);
+}
+
+/* Menu déroulant */
+details {
+  margin: 20px;
+}
+
+details summary {
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+.sub-card {
+  display: block;
+  background: #000000;
+  color: white;
+  padding: 15px;
+  margin: 10px auto;
+  border-radius: 12px;
+  width: fit-content;
+  font-size: 18px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.sub-card:hover {
+  background: #000000;
+  transform: scale(1.05);
+}
+
+footer {
+  margin-top: 60px;
+  padding: 20px;
+  font-size: 14px;
+  color: #555;
+}
+</style>
+</head>
+
+<body>
+<div id="prayer-banner" style="background:#1e3c72;color:white;padding:15px;font-size:18px;">
+  🔔 Prochaine prière : <span id="next-prayer"></span> dans <span id="countdown"></span>
+</div>
+
+<script>
 fetch("https://api.aladhan.com/v1/timingsByCity?city=Toulouse&country=France&method=2")
   .then(res => res.json())
   .then(data => {
@@ -223,6 +458,7 @@ function startCountdown(times) {
 
 </body>
 </html>
+
 
 
 
