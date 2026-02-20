@@ -112,12 +112,7 @@ footer {
 </div>
 
 <script>
-const apiUrl = "https://api.aladhan.com/v1/timingsByCity?city=Toulouse&country=France&method=2";
-
-// Proxy pour éviter le blocage CORS
-const proxy = "https://api.allorigins.win/raw?url=";
-
-fetch(proxy + encodeURIComponent(apiUrl))
+fetch("https://api.aladhan.com/v1/timingsByCity?city=Toulouse&country=France&method=2")
   .then(res => res.json())
   .then(data => {
 
@@ -134,7 +129,7 @@ fetch(proxy + encodeURIComponent(apiUrl))
     document.getElementById("prayer-banner").innerText =
       "⚠️ Horaires indisponibles";
 
-    console.error("Erreur :", err);
+    console.error("Erreur API :", err);
   });
 
 
@@ -161,7 +156,7 @@ function startCountdown(times) {
 
     let next = schedule.find(p => toDate(p.time) > now);
 
-    if (!next) next = schedule[0];
+    if (!next) next = schedule[0]; // Fajr demain
 
     let target = toDate(next.time);
 
@@ -170,8 +165,8 @@ function startCountdown(times) {
     if (diff < 0) diff += 86400000;
 
     const h = Math.floor(diff / 3600000);
-    const m = Math.floor(diff % 3600000 / 60000);
-    const s = Math.floor(diff % 60000 / 1000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
 
     document.getElementById("next-prayer").textContent = next.name;
 
@@ -228,6 +223,7 @@ function startCountdown(times) {
 
 </body>
 </html>
+
 
 
 
