@@ -46,6 +46,7 @@ h1 {
   max-width: 700px;
 }
 
+/* Textes */
 .arabic {
   font-size: 32px;
   margin-bottom: 20px;
@@ -64,6 +65,42 @@ h1 {
   line-height: 1.6;
 }
 
+/* Bouton audio halo */
+.audio-btn {
+  background: transparent;
+  color: white;
+
+  border: 2px solid white;
+  padding: 10px 22px;
+  border-radius: 12px;
+
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+
+  transition: all 0.25s ease;
+  margin-top: 20px;
+
+  box-shadow: 0 0 0 rgba(255,255,255,0);
+}
+
+.audio-btn:hover {
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 10px rgba(255,255,255,0.6);
+  transform: scale(1.05);
+}
+
+.audio-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 4px rgba(255,255,255,0.8);
+}
+
+.audio-btn:focus {
+  outline: none;
+  box-shadow: 0 0 12px rgba(255,255,255,0.9);
+}
+
+/* Bouton retour */
 .back {
   display: inline-block;
   margin-top: 30px;
@@ -113,6 +150,13 @@ footer {
     J’atteste qu’il n’y a de divinité que Toi.  
     Je Te demande pardon et je reviens vers Toi.
   </div>
+
+  <!-- Bouton audio -->
+  <button class="audio-btn" onclick="invoc.play()">
+    🔊 Écouter l’invocation
+  </button>
+
+  <audio id="invoc" src="invocation-fin.mp3"></audio>
 
 </div>
 
