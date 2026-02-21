@@ -118,6 +118,8 @@ footer {
 }
 /* Animation menu */
 
+/* Animation menu douce et lente */
+
 details {
   overflow: hidden;
 }
@@ -125,26 +127,18 @@ details {
 details > *:not(summary) {
   max-height: 0;
   opacity: 0;
-  transform: translateY(-5px);
+  transform: translateY(-8px);
   transition: 
-    max-height 0.4s ease,
-    opacity 0.3s ease,
-    transform 0.3s ease;
+    max-height 0.8s ease-in-out,
+    opacity 0.6s ease-in-out,
+    transform 0.6s ease-in-out;
 }
 
 /* Quand ouvert */
 details[open] > *:not(summary) {
-  max-height: 500px; /* assez grand */
+  max-height: 600px;
   opacity: 1;
   transform: translateY(0);
-}
-
-details summary {
-  transition: color 0.3s ease;
-}
-
-details[open] summary {
-  color: #ffeaa7;
 }
 </style>
 </head>
