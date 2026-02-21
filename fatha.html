@@ -23,34 +23,34 @@
 <script>
 // Lettres avec timestamp début (en secondes) et durée approximative (en secondes)
 const letters = [
-  {char:"اَ", start:1.8, duration:1.1},
-  {char:"بَ", start:4.8, duration:1.0},
-  {char:"تَ", start:6.5, duration:1.5},
-  {char:"ثَ", start:8.8, duration:1.5},
-  {char:"جَ", start:11.5, duration:1.4},
-  {char:"حَ", start:14.0, duration:1.3},
-  {char:"خَ", start:16.5, duration:0.9},
-  {char:"دَ", start:18.5, duration:1.0},
-  {char:"ذَ", start:20.5, duration:1.0},
-  {char:"رَ", start:22.3, duration:1.0},
-  {char:"زَ", start:24.0, duration:1.4},
-  {char:"سَ", start:26.2, duration:1.8},
-  {char:"شَ", start:28.5, duration:1.7},
-  {char:"صَ", start:31.0, duration:1.8},
-  {char:"ضَ", start:33.0, duration:1.7},
-  {char:"طَ", start:35.3, duration:1.3},
-  {char:"ظَ", start:37.4, duration:1.2},
-  {char:"عَ", start:39.4, duration:1.4},
-  {char:"غَ", start:41.4, duration:1.4},
-  {char:"فَ", start:43.9, duration:1.2},
-  {char:"قَ", start:45.7, duration:1.3},
-  {char:"كَ", start:47.9, duration:1.5},
-  {char:"لَ", start:50.0, duration:1.5},
-  {char:"مَ", start:51.8, duration:1.8},
-  {char:"نَ", start:54.0, duration:1.8},
-  {char:"هَ", start:56.2, duration:1.8},
-  {char:"وَ", start:58.3, duration:1.8},
-  {char:"يَ", start:60.8, duration:1.3}
+  {char:"اَ", start:0.8, duration:0.8},
+  {char:"بَ", start:1.6, duration:0.8},
+  {char:"تَ", start:2.4, duration:0.8},
+  {char:"ثَ", start:3.2, duration:0.8},
+  {char:"جَ", start:3.9, duration:1.0},
+  {char:"حَ", start:4.9, duration:1.0},
+  {char:"خَ", start:5.8, duration:0.9},
+  {char:"دَ", start:6.6, duration:1.0},
+  {char:"ذَ", start:7.4, duration:1.0},
+  {char:"رَ", start:8.4, duration:1.0},
+  {char:"زَ", start:9.3, duration:1.0},
+  {char:"سَ", start:10, duration:1.2},
+  {char:"شَ", start:11.0, duration:1.0},
+  {char:"صَ", start:11.8, duration:1.0},
+  {char:"ضَ", start:12.8, duration:1.0},
+  {char:"طَ", start:13.8, duration:1.0},
+  {char:"ظَ", start:14.8, duration:1.0},
+  {char:"عَ", start:15.5, duration:1.0},
+  {char:"غَ", start:16.3, duration:1.0},
+  {char:"فَ", start:17.3, duration:1.0},
+  {char:"قَ", start:18.0, duration:1.0},
+  {char:"كَ", start:19.0, duration:1.0},
+  {char:"لَ", start:19.8, duration:1.0}, // La
+  {char:"مَ", start:20.6, duration:1.0},  // ma
+  {char:"نَ", start:21.8, duration:0.8},
+  {char:"هَ", start:22.5, duration:1.0},
+  {char:"وَ", start:23.5, duration:1.0},
+  {char:"يَ", start:24.3, duration:1.0}
 ];
 
 const container = document.getElementById("letters");
@@ -61,7 +61,7 @@ letters.forEach(letter => {
   div.textContent = letter.char;
   div.onclick = () => {
     // Crée une nouvelle instance Audio à chaque clic
-    const audio = new Audio("fatha_cut.m4a");
+    const audio = new Audio("fatha_isma.mp3");
     audio.currentTime = letter.start; // position de début
     audio.play();
     // Arrêter après la durée de la lettre
