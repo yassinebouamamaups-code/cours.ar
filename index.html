@@ -116,10 +116,38 @@ footer {
   font-size: 14px;
   color: #555;
 }
+/* Animation menu */
 
+details {
+  overflow: hidden;
+}
+
+details > *:not(summary) {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: 
+    max-height 0.4s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Quand ouvert */
+details[open] > *:not(summary) {
+  max-height: 500px; /* assez grand */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+details summary {
+  transition: color 0.3s ease;
+}
+
+details[open] summary {
+  color: #ffeaa7;
+}
 </style>
 </head>
-
 <body>
 
 <!-- ================= PRIÈRES ================= -->
@@ -225,13 +253,10 @@ function startCountdown(times) {
 
 <div class="section">
 
-  <h2>Sommaire</h2>
-
-
   <!-- ================= PARTIE 1 ================= -->
 
   <div class="section-title">
-    📘 Partie 1 – Cours d’arabe et Tajweed
+    📘 Cours d’arabe et Tajweed
   </div>
 
   <details>
@@ -257,7 +282,7 @@ function startCountdown(times) {
   <!-- ================= PARTIE 2 ================= -->
 
   <div class="section-title">
-    🌙 Partie 2 – Cours d’Islam
+    🌙 Cours d’Islam
   </div>
 
   <details>
@@ -296,6 +321,32 @@ function startCountdown(times) {
   © 2026 – Cours d'arabe et Islam
 </footer>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  const details = document.querySelectorAll("details");
+
+  details.forEach((detail) => {
+
+    detail.addEventListener("toggle", function () {
+
+      if (this.open) {
+
+        details.forEach((other) => {
+
+          if (other !== this) {
+            other.removeAttribute("open");
+          }
+
+        });
+
+      }
+
+    });
+
+  });
+
+});
+</script>
 </body>
 </html>
