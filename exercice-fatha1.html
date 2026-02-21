@@ -113,38 +113,39 @@ body{
 /* ===== MODE MOBILE ===== */
 @media (max-width: 600px){
 
-  .band{
-    max-width:95%;
-    padding:12px;
-    margin:15px auto;
-  }
+ @media (max-width: 450px){
 
   .letter{
-    font-size:32px;
-    width:28px;
+    font-size:30px;
+    width:26px;
+    height:40px;
   }
 
   .haraka{
-    font-size:22px;
-    top:-6px;
+    font-size:18px;
+    top:-5px;
   }
 
   .group{
-    gap:6px;
-    padding:6px 8px;
+    gap:4px;
+    padding:4px 6px;
   }
 
   .table-line{
-    gap:10px;
+    gap:6px;
   }
 
   .letters{
-    gap:10px;
+    gap:6px;
   }
 
   .play{
-    font-size:14px;
-    padding:4px 6px;
+    font-size:12px;
+    padding:3px 5px;
+  }
+
+  .band{
+    padding:8px;
   }
 
   h1{
@@ -391,13 +392,12 @@ function playLine(containerId){
   stop();
 
   const letters =
-    document
-      .getElementById(containerId)
-      .querySelectorAll(".letter");
+    document.getElementById(containerId)
+    .querySelectorAll(".letter");
 
   let i = 0;
 
-  function next(){
+  function playNext(){
 
     if(i >= letters.length) return;
 
@@ -413,19 +413,22 @@ function playLine(containerId){
     audio.currentTime = data.start;
     audio.play();
 
+    /* On attend un peu PLUS longtemps */
+    const duration = (data.d + 0.15) * 1000;
+
     timer = setTimeout(()=>{
 
       audio.pause();
       current.classList.remove("active");
 
       i++;
-      timer = setTimeout(next,250);
 
-    }, data.d * 1000);
+      timer = setTimeout(playNext, 300);
 
+    }, duration);
   }
 
-  next();
+  playNext();
 }
 
 </script>
